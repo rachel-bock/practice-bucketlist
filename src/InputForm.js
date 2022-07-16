@@ -38,16 +38,16 @@ class InputForm extends Component {
           placeholder="Goal"
           name='goal'
           value={this.state.goal}
-          onChange={event=> this.handleChange(event)}
+          onChange={event => this.handleChange(event)}
         />
         <input 
           type="text"
           placeholder="Description"
           name='description'
           value={this.state.description}
-          onChange={event=> this.handleChange(event)}
+          onChange={event => this.handleChange(event)}
         />
-        <button>Submit</button>
+        <button type='submit'>Submit</button>
       </form>
     )
   }

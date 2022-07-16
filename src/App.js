@@ -19,18 +19,23 @@ class App extends Component {
   }
 
   markListItemComplete = id => {
-    let updatedItems = this.state.bucketList.filter(item => id !== item.id);
-    this.setState({bucketList: [updatedItems]});
-    console.log(this.state.bucketList);
+    let originalItems = this.state.bucketList.filter(item => id !== item.id);
+    let updatedItem = this.state.bucketList.find(item => id === item.id);
+    updatedItem.done = true;
+    this.setState({bucketList: [...originalItems, updatedItem]});
   }
 
   addListItems = newItem => {
+    console.log(this.state.bucketList, "<<< before add update");
     this.setState({bucketList: [...this.state.bucketList, newItem]});
+    console.log(this.state.bucketList, "<<< after add update");
   }
 
   deleteListItems(itemId) {
+    console.log(this.state, '<<< Before delete item');
     let updatedList = this.state.bucketList.filter( listItem => listItem.id !== itemId);
     this.setState({bucketList: updatedList});
+    console.log(this.state, '<<< Before delete item');
   }
 
   render() {
@@ -38,7 +43,13 @@ class App extends Component {
       <main className="App">
         <NavigationBar />
         <InputForm addListItems={this.addListItems}/>
-        {!this.state.bucketList.length && <h2>No Bucket List Items Yet -- Add Some!!</h2>}
+        {!this.state.bucketList.length && <h2>No Bucket List Items -- Add Some!!</h2>}
+        {!this.state.bucketList.reduce((acc, curr) => {
+          if(!curr.done) {
+            acc += 1;
+          }
+          return acc;
+        }, 0) && <h2>All Bucket List Items Complete -- Add more!</h2>}
         <BucketList myList={this.state.bucketList} deleteListItems={this.deleteListItems} markComplete={this.markListItemComplete}/>
       </main>
     )
