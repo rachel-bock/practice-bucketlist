@@ -1,25 +1,48 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import NavigationBar from './NavigationBar';
+import InputForm from './InputForm';
+import BucketList from './BucketList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      bucketList: [
+        {id: 1, goal: "Travel to Europe", description: 'Visit all WW2 battlegrounds.', done: false}, 
+        {id: 2, goal: "Watch boys turn 18 years old", description: 'Celebrate "raising" sons through their childhoods.', done: false}, 
+        {id: 3, goal: "Be there when Daniel gets married", description: 'Celebrate Daniel finding an eternal companion.', done: false}, 
+        {id: 4, goal: "Be there when William gets married", description: 'Celebrate William finding an eternal companion.', done: false}, 
+      ]
+    }
+  }
+
+  markListItemComplete = id => {
+    let updatedItems = this.state.bucketList.filter(item => id !== item.id);
+    this.setState({bucketList: [updatedItems]});
+    console.log(this.state.bucketList);
+  }
+
+  addListItems = newItem => {
+    this.setState({bucketList: [...this.state.bucketList, newItem]});
+  }
+
+  deleteListItems(itemId) {
+    let updatedList = this.state.bucketList.filter( listItem => listItem.id !== itemId);
+    this.setState({bucketList: updatedList});
+  }
+
+  render() {
+    return (
+      <main className="App">
+        <NavigationBar />
+        <InputForm addListItems={this.addListItems}/>
+        {!this.state.bucketList.length && <h2>No Bucket List Items Yet -- Add Some!!</h2>}
+        <BucketList myList={this.state.bucketList} deleteListItems={this.deleteListItems} markComplete={this.markListItemComplete}/>
+      </main>
+    )
+  }  
 }
 
 export default App;
