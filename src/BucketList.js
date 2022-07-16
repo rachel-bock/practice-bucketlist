@@ -2,7 +2,7 @@ import React from "react";
 import ListItem from "./ListItem";
 import './BucketList.css';
 
-const BucketList = ({ myList, deleteListItems, markComplete }) => {
+const BucketList = ({ myList, deleteListItems }) => {
 
   const theList = myList.map( goal => {
     if(!goal.done) {
@@ -12,7 +12,6 @@ const BucketList = ({ myList, deleteListItems, markComplete }) => {
           key={goal.id}
           item={goal}
           deleteListItems = {deleteListItems}
-          markComplete = {markComplete}
         />
       )
     }

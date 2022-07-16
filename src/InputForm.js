@@ -47,7 +47,7 @@ class InputForm extends Component {
           value={this.state.description}
           onChange={event => this.handleChange(event)}
         />
-        <button type='submit'>Submit</button>
+        <button type='submit' onClick={event => this.submitListItem(event)}>Submit</button>
       </form>
     )
   }
