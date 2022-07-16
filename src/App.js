@@ -18,13 +18,6 @@ class App extends Component {
     }
   }
 
-  markListItemComplete = id => {
-    let originalItems = this.state.bucketList.filter(item => id !== item.id);
-    // let updatedItem = this.state.bucketList.find(item => id === item.id);
-    // updatedItem.done = true;
-    this.setState({bucketList: [...originalItems]});
-  }
-
   addListItems = newItem => {
     this.setState({bucketList: [...this.state.bucketList, newItem]});
   }
